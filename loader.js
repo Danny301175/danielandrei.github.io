@@ -1,57 +1,65 @@
 /* ============================================
    loader.js — Danielandrei · Fotografía & IT
    ============================================
-   Animación de carga al entrar en la web.
-   Pantalla dividida en dos paneles con fotos
-   que se abren hacia los lados revelando la web.
+   Pantalla de bienvenida dividida en dos paneles.
+   El usuario elige a qué sección ir haciendo
+   clic en el panel que le interesa.
 
    CÓMO USAR:
-   1. Añade este archivo a tu repositorio
-   2. En index.html, antes de </body>, pon:
-         <script src="loader.js"></script>
-   3. El loader se inyecta solo, no necesitas
-      tocar el HTML ni el CSS.
+   Añade esta línea en tu index.html antes de </body>:
+       <script src="loader.js"></script>
 
    CAMBIAR LAS FOTOS:
-   - Sube tus fotos al repositorio de GitHub
-   - Cambia las variables FOTO_IZQUIERDA y
-     FOTO_DERECHA de abajo por el nombre
-     de tus archivos.
+   Sube tus fotos al repositorio y cambia
+   FOTO_IZQUIERDA y FOTO_DERECHA abajo.
+   Ejemplo: 'fotos/arquitectura.jpg'
+
+   CAMBIAR LOS DESTINOS:
+   Cambia DESTINO_IZQUIERDA y DESTINO_DERECHA
+   por el id de la sección a la que quieres ir.
    ============================================ */
 
 
 /* ──────────────────────────────────────────
-   CONFIGURACIÓN — cambia esto a tu gusto
+   CONFIGURACIÓN
    ────────────────────────────────────────── */
 
 var CONFIG = {
 
-  /* Rutas de las fotos.
-     Cuando tengas tus propias fotos, súbelas
-     al repositorio y pon aquí su nombre.
-     Ejemplo: 'fotos/arquitectura.jpg'        */
-  FOTO_IZQUIERDA: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85',
-  FOTO_DERECHA:   'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85',
+  /* Fotos de fondo de cada panel.
+     Cámbialas por tus propias fotos cuando las tengas. */
+  FOTO_IZQUIERDA: 'Fotografo.jpg',
+  FOTO_DERECHA:   'Tecnico IT.jpg',
 
-  /* Textos de cada panel */
-  TEXTO_IZQUIERDA:    'Fotógrafo',
-  SUBTEXTO_IZQUIERDA: 'Paisaje · Arquitectura · Urbano',
-  TEXTO_DERECHA:      'Técnico IT',
-  SUBTEXTO_DERECHA:   'Reparación · Mantenimiento',
+  /* Textos */
+  NUMERO_IZQUIERDA:    '01',
+  TEXTO_IZQUIERDA:     'Fotógrafo',
+  SUBTEXTO_IZQUIERDA:  'Paisaje · Arquitectura · Urbano',
 
-  /* Tiempos en milisegundos */
-  TIEMPO_TEXTOS:      200,   // cuándo aparecen los textos
-  TIEMPO_LINEA:       500,   // cuándo aparece la línea central
-  TIEMPO_APERTURA:    1500,  // cuándo se abren los paneles
-  TIEMPO_OCULTAR:     2700,  // cuándo desaparece el loader del DOM
+  NUMERO_DERECHA:      '02',
+  TEXTO_DERECHA:       'Técnico IT',
+  SUBTEXTO_DERECHA:    'Reparación · Mantenimiento',
 
-  /* Color del overlay sobre las fotos (rgba) */
+  TEXTO_CTA: 'Entrar →',
+
+  /* Secciones destino al hacer clic */
+  DESTINO_IZQUIERDA: '#portfolio',
+  DESTINO_DERECHA:   '#servicios-it',
+
+  /* Color del overlay sobre las fotos */
   COLOR_OVERLAY: 'rgba(18, 12, 6, 0.52)',
+
+  /* Tiempos de entrada (milisegundos) */
+  TIEMPO_TEXTOS: 200,
+  TIEMPO_LINEA:  500,
+
+  /* Duración de la animación de salida al elegir */
+  TIEMPO_SALIDA: 1100,
 };
 
 
 /* ──────────────────────────────────────────
-   ESTILOS — se inyectan automáticamente
+   ESTILOS
    ────────────────────────────────────────── */
 
 var estilos = document.createElement('style');
@@ -63,14 +71,8 @@ estilos.textContent = `
     inset: 0;
     display: flex;
     z-index: 9999;
-    pointer-events: all;
   }
 
-  #da-loader.oculto {
-    pointer-events: none;
-  }
-
-  /* Línea vertical central */
   #da-linea {
     position: fixed;
     left: 50%;
@@ -78,16 +80,13 @@ estilos.textContent = `
     width: 1px;
     background: rgba(200, 191, 171, 0.45);
     z-index: 10000;
+    pointer-events: none;
     transform: scaleY(0);
     transform-origin: center;
     transition: transform 0.5s ease;
   }
+  #da-linea.visible { transform: scaleY(1); }
 
-  #da-linea.visible {
-    transform: scaleY(1);
-  }
-
-  /* Paneles */
   .da-panel {
     width: 50%;
     height: 100%;
@@ -96,37 +95,39 @@ estilos.textContent = `
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1);
+    cursor: pointer;
+    transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1),
+                width 0.4s ease;
   }
+
+  /* Al hacer hover, el panel activo se expande */
+  .da-panel:hover { width: 56%; }
+  .da-panel:hover ~ .da-panel { width: 44%; }
 
   .da-panel-izq { transform: translateX(0); }
   .da-panel-der { transform: translateX(0); }
-
   .da-panel-izq.abierto { transform: translateX(-100%); }
   .da-panel-der.abierto { transform: translateX(100%); }
 
-  /* Foto de fondo */
-  .da-panel-foto {
+  .da-foto {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
     transition: transform 8s ease;
   }
+  .da-foto.zoom { transform: scale(1.07); }
 
-  /* Efecto zoom suave en la foto mientras espera */
-  .da-panel-foto.zoom {
-    transform: scale(1.06);
-  }
-
-  /* Overlay oscuro */
-  .da-panel-overlay {
+  .da-overlay {
     position: absolute;
     inset: 0;
+    transition: background 0.4s ease;
+  }
+  .da-panel:hover .da-overlay {
+    background: rgba(18, 12, 6, 0.32) !important;
   }
 
-  /* Contenido de texto */
-  .da-panel-contenido {
+  .da-contenido {
     position: relative;
     z-index: 2;
     display: flex;
@@ -135,6 +136,8 @@ estilos.textContent = `
     gap: 0.75rem;
     text-align: center;
     padding: 2rem;
+    pointer-events: none;
+    user-select: none;
   }
 
   .da-numero {
@@ -157,14 +160,14 @@ estilos.textContent = `
     color: #f5f0e8;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.6s ease 0.12s, transform 0.6s ease 0.12s;
+    transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
   }
 
   .da-linea-h {
     width: 0;
     height: 1px;
     background: #9c8060;
-    transition: width 0.6s ease 0.28s;
+    transition: width 0.6s ease 0.25s;
   }
 
   .da-subtitulo {
@@ -174,10 +177,30 @@ estilos.textContent = `
     text-transform: uppercase;
     color: #c8bfab;
     opacity: 0;
-    transition: opacity 0.5s ease 0.38s;
+    transition: opacity 0.5s ease 0.35s;
   }
 
-  /* Estado activo — textos aparecen */
+  /* Botón CTA — solo visible al hacer hover */
+  .da-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #f5f0e8;
+    border: 1px solid rgba(200, 191, 171, 0.4);
+    padding: 9px 22px;
+    margin-top: 0.4rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  }
+  .da-panel:hover .da-cta {
+    opacity: 1;
+    transform: translateY(0);
+    background: rgba(200, 191, 171, 0.12);
+  }
+
+  /* Activar textos cuando el loader está listo */
   #da-loader.activo .da-numero    { opacity: 1; transform: translateY(0); }
   #da-loader.activo .da-titulo    { opacity: 1; transform: translateY(0); }
   #da-loader.activo .da-linea-h   { width: 48px; }
@@ -187,110 +210,132 @@ document.head.appendChild(estilos);
 
 
 /* ──────────────────────────────────────────
-   HTML — se inyecta automáticamente
+   HTML
    ────────────────────────────────────────── */
 
-// Línea central
 var lineaCentral = document.createElement('div');
 lineaCentral.id = 'da-linea';
 document.body.appendChild(lineaCentral);
 
-// Loader principal
 var loader = document.createElement('div');
 loader.id = 'da-loader';
-loader.innerHTML = `
-  <div class="da-panel da-panel-izq">
-    <div class="da-panel-foto" style="background-image: url('${CONFIG.FOTO_IZQUIERDA}');"></div>
-    <div class="da-panel-overlay" style="background: ${CONFIG.COLOR_OVERLAY};"></div>
-    <div class="da-panel-contenido">
-      <span class="da-numero">01</span>
-      <div class="da-titulo">${CONFIG.TEXTO_IZQUIERDA}</div>
-      <div class="da-linea-h"></div>
-      <span class="da-subtitulo">${CONFIG.SUBTEXTO_IZQUIERDA}</span>
-    </div>
-  </div>
-  <div class="da-panel da-panel-der">
-    <div class="da-panel-foto" style="background-image: url('${CONFIG.FOTO_DERECHA}');"></div>
-    <div class="da-panel-overlay" style="background: ${CONFIG.COLOR_OVERLAY};"></div>
-    <div class="da-panel-contenido">
-      <span class="da-numero">02</span>
-      <div class="da-titulo">${CONFIG.TEXTO_DERECHA}</div>
-      <div class="da-linea-h"></div>
-      <span class="da-subtitulo">${CONFIG.SUBTEXTO_DERECHA}</span>
-    </div>
-  </div>
-`;
+loader.innerHTML =
+  '<div class="da-panel da-panel-izq" id="da-izq">' +
+    '<div class="da-foto" id="da-foto-izq" style="background-image: url(\'' + CONFIG.FOTO_IZQUIERDA + '\');"></div>' +
+    '<div class="da-overlay" style="background: ' + CONFIG.COLOR_OVERLAY + ';"></div>' +
+    '<div class="da-contenido">' +
+      '<span class="da-numero">' + CONFIG.NUMERO_IZQUIERDA + '</span>' +
+      '<div class="da-titulo">' + CONFIG.TEXTO_IZQUIERDA + '</div>' +
+      '<div class="da-linea-h"></div>' +
+      '<span class="da-subtitulo">' + CONFIG.SUBTEXTO_IZQUIERDA + '</span>' +
+      '<div class="da-cta">' + CONFIG.TEXTO_CTA + '</div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="da-panel da-panel-der" id="da-der">' +
+    '<div class="da-foto" id="da-foto-der" style="background-image: url(\'' + CONFIG.FOTO_DERECHA + '\');"></div>' +
+    '<div class="da-overlay" style="background: ' + CONFIG.COLOR_OVERLAY + ';"></div>' +
+    '<div class="da-contenido">' +
+      '<span class="da-numero">' + CONFIG.NUMERO_DERECHA + '</span>' +
+      '<div class="da-titulo">' + CONFIG.TEXTO_DERECHA + '</div>' +
+      '<div class="da-linea-h"></div>' +
+      '<span class="da-subtitulo">' + CONFIG.SUBTEXTO_DERECHA + '</span>' +
+      '<div class="da-cta">' + CONFIG.TEXTO_CTA + '</div>' +
+    '</div>' +
+  '</div>';
 document.body.appendChild(loader);
 
 
 /* ──────────────────────────────────────────
-   SECUENCIA DE ANIMACIÓN
+   ANIMACIÓN DE ENTRADA
    ────────────────────────────────────────── */
 
-var panelIzq  = loader.querySelector('.da-panel-izq');
-var panelDer  = loader.querySelector('.da-panel-der');
-var fotos     = loader.querySelectorAll('.da-panel-foto');
+var panelIzq = document.getElementById('da-izq');
+var panelDer = document.getElementById('da-der');
 
-// Paso 1 — zoom suave en las fotos desde el inicio
+// Zoom suave en las fotos
 setTimeout(function() {
-  fotos.forEach(function(foto) { foto.classList.add('zoom'); });
-}, 50);
+  document.getElementById('da-foto-izq').classList.add('zoom');
+  document.getElementById('da-foto-der').classList.add('zoom');
+}, 60);
 
-// Paso 2 — textos aparecen
+// Textos aparecen
 setTimeout(function() {
   loader.classList.add('activo');
 }, CONFIG.TIEMPO_TEXTOS);
 
-// Paso 3 — línea central aparece
+// Línea central
 setTimeout(function() {
   lineaCentral.classList.add('visible');
 }, CONFIG.TIEMPO_LINEA);
 
-// Paso 4 — paneles se abren hacia los lados
-setTimeout(function() {
-  panelIzq.classList.add('abierto');
-  panelDer.classList.add('abierto');
-  loader.classList.add('oculto');
-}, CONFIG.TIEMPO_APERTURA);
-
-// Paso 5 — eliminar del DOM para no bloquear la web
-setTimeout(function() {
-  if (loader.parentNode)     loader.parentNode.removeChild(loader);
-  if (lineaCentral.parentNode) lineaCentral.parentNode.removeChild(lineaCentral);
-}, CONFIG.TIEMPO_OCULTAR);
+// NO hay cierre automático — el usuario elige haciendo clic
 
 
 /* ──────────────────────────────────────────
-   ESPACIO PARA FUTURAS MEJORAS
+   ELECCIÓN DEL USUARIO
+   ────────────────────────────────────────── */
+
+function elegir(destino) {
+  var duracion = CONFIG.TIEMPO_SALIDA / 1000;
+
+  panelIzq.style.transition = 'transform ' + duracion + 's cubic-bezier(0.76, 0, 0.24, 1)';
+  panelDer.style.transition = 'transform ' + duracion + 's cubic-bezier(0.76, 0, 0.24, 1)';
+
+  panelIzq.classList.add('abierto');
+  panelDer.classList.add('abierto');
+
+  lineaCentral.style.transition = 'transform 0.4s ease';
+  lineaCentral.style.transform  = 'scaleY(0)';
+
+  setTimeout(function() {
+    if (loader.parentNode)       loader.parentNode.removeChild(loader);
+    if (lineaCentral.parentNode) lineaCentral.parentNode.removeChild(lineaCentral);
+
+    var seccion = document.querySelector(destino);
+    if (seccion) {
+      seccion.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, CONFIG.TIEMPO_SALIDA);
+}
+
+panelIzq.addEventListener('click', function() { elegir(CONFIG.DESTINO_IZQUIERDA); });
+panelDer.addEventListener('click', function() { elegir(CONFIG.DESTINO_DERECHA); });
+
+
+/* ──────────────────────────────────────────
+   IDEAS PARA EL FUTURO
    ──────────────────────────────────────────
 
-  IDEA A — Que cada panel sea clickable para
-  ir directamente a esa sección:
+  IDEA A — Mostrar el loader solo la primera vez
+  (no cada vez que el usuario recarga la página):
   ----------------------------------------
-  panelIzq.style.cursor = 'pointer';
-  panelIzq.addEventListener('click', function() {
-    window.location.hash = '#portfolio';
-  });
-  panelDer.style.cursor = 'pointer';
-  panelDer.addEventListener('click', function() {
-    window.location.hash = '#servicios-it';
-  });
+  Envuelve todo el código de animación así:
 
-  IDEA B — Solo mostrar el loader la primera vez
-  (no cada vez que recargan la página):
-  ----------------------------------------
   if (sessionStorage.getItem('loaderVisto')) {
     loader.remove();
     lineaCentral.remove();
   } else {
     sessionStorage.setItem('loaderVisto', 'true');
-    // ... aquí va la secuencia de animación
+    // aquí el código de animación de entrada
   }
 
-  IDEA C — Añadir un sonido suave al abrirse:
+
+  IDEA B — Nombre en la línea central:
   ----------------------------------------
-  var audio = new Audio('sonido-apertura.mp3');
-  audio.volume = 0.3;
-  audio.play();
+  Añade esto después de crear lineaCentral:
+
+  var nombreLinea = document.createElement('span');
+  nombreLinea.textContent = 'Danielandrei';
+  nombreLinea.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg);font-family:"Cormorant Garamond",serif;font-size:0.7rem;letter-spacing:3px;color:#c8bfab;white-space:nowrap;';
+  lineaCentral.appendChild(nombreLinea);
+
+
+  IDEA C — Sonido suave al elegir:
+  ----------------------------------------
+  Al inicio de la función elegir() añade:
+
+  var audio = new Audio('click.mp3');
+  audio.volume = 0.2;
+  audio.play().catch(function() {});
 
    ────────────────────────────────────────── */
