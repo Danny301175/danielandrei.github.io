@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+    ══════════════════════════════════════════
+    CÓMO USAR ESTA PLANTILLA
+    ══════════════════════════════════════════
+
+    1. Duplica este archivo para cada categoría:
+       - galeria-arquitectura.html
+       - galeria-urbano.html
+       - galeria-patrimonio.html
+
+    2. Cambia el TÍTULO, DESCRIPCIÓN y NÚMERO
+       DE FOTOS en el <header> de abajo.
+
+    3. En cada .foto, cambia:
+       - src="tus-fotos/nombre.jpg"  → tu foto real
+       - data-titulo="..."           → título de la foto
+       - data-meta="..."             → lugar y año
+
+    4. Añade o quita bloques .foto según necesites.
+       Cambia las clases de tamaño:
+         .foto-grande   → ocupa 7 de 12 columnas
+         .foto-vertical → ocupa 5 de 12 columnas (formato retrato)
+         .foto-ancha    → ocupa 8 de 12 columnas (panorámica)
+         .foto-media    → ocupa 4 de 12 columnas
+         .foto-normal   → ocupa 6 de 12 columnas
+
+    5. En el <nav>, actualiza el href del enlace
+       "Volver al inicio" si tu index se llama
+       diferente.
+    ══════════════════════════════════════════
+  -->
+
+  <title>Danielandrei · Arte</title><!-- ← cambia el título -->
+  <meta name="description" content="Fotografía de arte por Danielandrei." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="galeria.css" />
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-brand">Danielandrei</a>
+  <a href="index.html#portfolio" class="nav-back">← Volver al portfolio</a>
+</nav>
+
+<!-- ── CABECERA DE LA CATEGORÍA ── -->
+<header class="page-header">
+  <div class="page-header-left">
+    <p class="page-eyebrow">Categoría 01</p><!-- ← cambia el número -->
+    <h1 class="page-title">
+      Paisaje<br>
+      <em>urbano</em><!-- ← cambia el título -->
+    </h1>
+  </div>
+  <div class="page-header-right">
+    <span class="page-count">12 fotografías</span><!-- ← cambia el número -->
+    <p class="page-desc">
+      La ciudad como paisaje. Benidorm desde las alturas, entre niebla y geometría de hormigón.
+      <!-- ← cambia la descripción -->
+    </p>
+  </div>
+</header>
+
+<!-- ── CUADRÍCULA EDITORIAL ──
+     Instrucciones de layout:
+     - La cuadrícula tiene 12 columnas.
+     - Combina los tamaños para crear ritmo visual.
+     - Cada fila debe sumar 12 columnas en total.
+       Ejemplos válidos:
+         grande(7) + vertical(5) = 12 ✓
+         media(4) + media(4) + media(4) = 12 ✓
+         ancha(8) + media(4) = 12 ✓
+         normal(6) + normal(6) = 12 ✓
+── -->
+<main class="galeria-grid" id="galeria">
+
+  <!-- FILA 1: grande(7) + vertical(5) -->
+  <div class="foto foto-grande"
+       data-titulo="Vertical city"
+       data-meta="Benidorm, 2024"
+       data-idx="0">
+    <img src="fotos/urbano/01.jpg" alt="Vertical city" class="foto-img" />
+    <span class="foto-num">01</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Vertical city</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <div class="foto foto-vertical"
+       data-titulo="Niebla matinal"
+       data-meta="Benidorm, 2024"
+       data-idx="1">
+    <img src="fotos/urbano/02.jpg" alt="Niebla matinal" class="foto-img" />
+    <span class="foto-num">02</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Niebla matinal</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <!-- FILA 2: media(4) + media(4) + media(4) -->
+  <div class="foto foto-media"
+       data-titulo="Rascacielos"
+       data-meta="Benidorm, 2024"
+       data-idx="2">
+    <img src="fotos/urbano/03.jpg" alt="Rascacielos" class="foto-img" />
+    <span class="foto-num">03</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Rascacielos</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <div class="foto foto-media"
+       data-titulo="Geometría urbana"
+       data-meta="Benidorm, 2024"
+       data-idx="3">
+    <img src="fotos/urbano/04.jpg" alt="Geometría urbana" class="foto-img" />
+    <span class="foto-num">04</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Geometría urbana</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <div class="foto foto-media"
+       data-titulo="Horizonte"
+       data-meta="Benidorm, 2024"
+       data-idx="4">
+    <img src="fotos/urbano/05.jpg" alt="Horizonte" class="foto-img" />
+    <span class="foto-num">05</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Horizonte</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <!-- FILA 3: ancha(8) + media(4) -->
+  <div class="foto foto-ancha"
+       data-titulo="La ciudad duerme"
+       data-meta="Benidorm, 2024"
+       data-idx="5">
+    <img src="fotos/urbano/06.jpg" alt="La ciudad duerme" class="foto-img" />
+    <span class="foto-num">06</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">La ciudad duerme</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <div class="foto foto-media"
+       data-titulo="Atardecer"
+       data-meta="Benidorm, 2024"
+       data-idx="6">
+    <img src="fotos/urbano/07.jpg" alt="Atardecer" class="foto-img" />
+    <span class="foto-num">07</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Atardecer</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <!-- FILA 4: normal(6) + normal(6) -->
+  <div class="foto foto-normal"
+       data-titulo="Entre torres"
+       data-meta="Benidorm, 2024"
+       data-idx="7">
+    <img src="fotos/urbano/08.jpg" alt="Entre torres" class="foto-img" />
+    <span class="foto-num">08</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Entre torres</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <div class="foto foto-normal"
+       data-titulo="Perspectiva"
+       data-meta="Benidorm, 2024"
+       data-idx="8">
+    <img src="fotos/urbano/09.jpg" alt="Perspectiva" class="foto-img" />
+    <span class="foto-num">09</span>
+    <div class="foto-overlay">
+      <div class="foto-titulo">Perspectiva</div>
+      <div class="foto-sub">Benidorm, 2024</div>
+    </div>
+  </div>
+
+  <!--
+    ¿Quieres añadir más fotos? Copia uno de los
+    bloques de arriba y cambia src, data-titulo,
+    data-meta y data-idx (número correlativo).
+    Recuerda que cada fila debe sumar 12 columnas.
+  -->
+
+</main>
+
+<!-- ── LIGHTBOX ──
+     Se abre al hacer clic en cualquier foto.
+     No necesitas tocarlo.
+── -->
+<div id="lightbox" aria-modal="true" role="dialog">
+  <button class="lb-cerrar" id="lb-cerrar">✕ Cerrar</button>
+  <button class="lb-nav lb-prev" id="lb-prev">← Anterior</button>
+  <button class="lb-nav lb-next" id="lb-next">Siguiente →</button>
+  <div class="lb-wrap">
+    <img id="lb-img" src="" alt="" />
+  </div>
+  <div class="lb-info">
+    <div class="lb-titulo" id="lb-titulo"></div>
+    <div class="lb-meta"   id="lb-meta"></div>
+  </div>
+  <div class="lb-contador" id="lb-contador"></div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-brand">Danielandrei</span>
+  <nav class="footer-links">
+    <a href="index.html#portfolio">Portfolio</a>
+    <a href="index.html#servicios-it">Servicios IT</a>
+    <a href="index.html#contacto">Contacto</a>
+  </nav>
+  <span class="footer-copy">© 2025 · Todos los derechos reservados</span>
+</footer>
+
+<script src="galeria.js"></script>
+</body>
+</html>

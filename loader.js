@@ -28,8 +28,8 @@ var CONFIG = {
 
   /* Fotos de fondo de cada panel.
      Cámbialas por tus propias fotos cuando las tengas. */
-  FOTO_IZQUIERDA: 'Fotografo.jpg',
-  FOTO_DERECHA:   'Tecnico IT.jpg',
+  FOTO_IZQUIERDA: 'IMG/Fotografo.jpg',
+  FOTO_DERECHA:   'IMG/Tecnico IT.jpg',
 
   /* Textos */
   NUMERO_IZQUIERDA:    '01',
