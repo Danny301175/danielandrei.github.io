@@ -162,7 +162,6 @@ window.addEventListener('scroll', function() {
 
 var hero = document.getElementById('hero-immersive');
 var flash = document.getElementById('flash-overlay');
-var flashSound = document.getElementById('flash-sound');
 var introDone = false;
 
 if (hero) {
@@ -170,8 +169,11 @@ if (hero) {
     if (introDone) return; // Evitar múltiples clics
     introDone = true;
 
-    // Reproducir sonido de flash
+    // Buscar el audio en el momento del clic, después del DOM completo
+    var flashSound = document.getElementById('flash-sound');
     if (flashSound) {
+      flashSound.currentTime = 0;
+      flashSound.volume = 0.6;
       flashSound.play().catch(function(error) {
         console.log('Audio no pudo reproducirse:', error);
       });
