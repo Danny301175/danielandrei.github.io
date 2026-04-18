@@ -152,3 +152,47 @@ window.addEventListener('scroll', function() {
     }, paso);
   }
 */
+
+/* ──────────────────────────────────────────
+   5. INTRO CON FLASH AL CLIC
+   ──────────────────────────────────────────
+   Al cargar, bloquea scroll. Al clic en hero,
+   hace flash y luego permite scroll y va a categorías.
+   ────────────────────────────────────────── */
+
+var hero = document.getElementById('hero-immersive');
+var flash = document.getElementById('flash-overlay');
+var flashSound = document.getElementById('flash-sound');
+var introDone = false;
+
+if (hero) {
+  hero.addEventListener('click', function() {
+    if (introDone) return; // Evitar múltiples clics
+    introDone = true;
+
+    // Reproducir sonido de flash
+    if (flashSound) {
+      flashSound.play().catch(function(error) {
+        console.log('Audio no pudo reproducirse:', error);
+      });
+    }
+
+    // Activar flash
+    flash.classList.add('active');
+
+    // Cambiar hero a relative para permitir scroll
+    hero.style.position = 'relative';
+
+    // Después de flash, remover overflow hidden y scroll a portfolio
+    setTimeout(function() {
+      document.body.style.overflow = 'auto'; // Permitir scroll
+      flash.classList.remove('active');
+
+      // Scroll suave a la sección de portfolio
+      var portfolio = document.getElementById('portfolio');
+      if (portfolio) {
+        portfolio.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 200); // Tiempo del flash
+  });
+}

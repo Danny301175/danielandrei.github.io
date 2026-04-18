@@ -3,616 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Danielandrei · Fotografía & Servicios IT</title>
-  <meta name="description" content="Fotografía de paisaje, arquitectura y urbano. Servicios IT de reparación y mantenimiento. Danielandrei." />
+  <title>Daniel Andrei · Fotografía & Servicios IT</title>
+  <meta name="description" content="Fotografía de paisaje, arquitectura y urbano. Servicios IT de reparación y mantenimiento. Daniel Andrei." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --cream: #f5f0e8;
-      --ink: #2a2118;
-      --ink-light: #1c1610;
-      --stone: #c8bfab;
-      --warm: #9c8060;
-      --sienna: #7a5c35;
-      --muted: #6b5d4a;
+    #hero-immersive {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      min-height: 600px; overflow: hidden; background: #0c0905;
+      cursor: pointer; /* Indicar que es clickeable */
+      z-index: 1000;
     }
-
-    html { scroll-behavior: smooth; }
-
-    
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
+    #hero-immersive .nav-brand {
+      position: absolute; top: 0; left: 0; z-index: 50;
+      color: #f5f0e8;
+      padding: 1.6rem 3rem;
     }
-
-    /* ── NAV ── */
-    nav {
-      padding: 1.8rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--stone);
-      position: sticky;
-      top: 0;
-      background: var(--cream);
-      z-index: 100;
-    }
-    .nav-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 300;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.72rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--muted);
-      transition: color 0.3s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-
-    /* ── HERO ── */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 90vh;
-    }
-    .hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5rem 4rem;
-      border-right: 1px solid var(--stone);
-    }
-    .eyebrow {
-      font-size: 0.68rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 2rem;
-    }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 4.5vw, 4.5rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--ink-light);
-      margin-bottom: 2rem;
-    }
-    .hero-title em { font-style: italic; color: var(--sienna); }
-    .hero-desc {
-      font-size: 0.9rem;
-      line-height: 1.9;
-      color: var(--muted);
-      max-width: 340px;
-      margin-bottom: 3rem;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      border: 1px solid var(--ink);
-      font-size: 0.68rem;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-      cursor: pointer;
+    #hero-immersive nav {
+      position: absolute; top: 0; right: 0; z-index: 50;
       background: transparent;
-      transition: background 0.3s, color 0.3s;
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-    }
-    .btn:hover { background: var(--ink); color: var(--cream); }
-    .btn-filled {
-      background: var(--ink);
-      color: var(--cream);
-    }
-    .btn-filled:hover { background: #4a3828; border-color: #4a3828; }
-
-    /* Hero visual */
-    .hero-visual {
-      position: relative;
-      overflow: hidden;
-      background: #3d4f5c;
-      min-height: 500px;
-    }
-    .arch-svg { width: 100%; height: 100%; position: absolute; inset: 0; }
-    .photo-caption {
-      position: absolute;
-      bottom: 2rem;
-      left: 2rem;
-      background: rgba(245,240,232,0.92);
-      padding: 10px 16px;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    @keyframes archDraw { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
-    .arch-path {
-      stroke-dasharray: 600;
-      stroke-dashoffset: 600;
-      animation: archDraw 2s ease forwards;
-    }
-    .arch-path:nth-child(1) { animation-delay: 0.2s; }
-    .arch-path:nth-child(2) { animation-delay: 0.4s; }
-    .arch-path:nth-child(3) { animation-delay: 0.6s; }
-    .arch-path:nth-child(4) { animation-delay: 0.8s; }
-    @keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(500%); } }
-    .scan-line {
-      position: absolute; left: 0; right: 0; height: 1px;
-      background: rgba(245,240,232,0.10);
-      animation: scan 7s ease-in-out infinite;
-      pointer-events: none; z-index: 2;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      padding: 2.5rem 3rem;
+      border-bottom: 1px solid rgba(200,191,171,0.12);
+      padding: 1.6rem 3rem;
       display: flex;
       align-items: center;
-      gap: 2rem;
-      border-bottom: 1px solid var(--stone);
     }
-    .divider-line { flex: 1; height: 1px; background: var(--stone); }
-    .divider-text {
-      font-size: 0.62rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--warm);
-      white-space: nowrap;
-    }
-
-    /* ── SERIES / CATEGORÍAS ── */
-    .series { padding: 4rem 3rem; }
-    .series-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 3rem;
-    }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 300;
-      color: var(--ink-light);
-    }
-    .series-count {
-      font-size: 0.68rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--warm);
-    }
-    .series-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--stone);
-      border: 1px solid var(--stone);
-    }
-    .series-card {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      background: var(--cream);
-    }
-    .series-card:hover .card-overlay { opacity: 1; }
-    .series-card:hover .color-block { transform: scale(1.04); }
-    .color-block {
-      width: 100%;
-      aspect-ratio: 3/4;
-      transition: transform 0.6s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .card-1 .color-block {
-      background: url('IMG/Benidorm.jpg') center/cover no-repeat;
-      background-color: #3d4f5c;
-    }
-    .card-2 .color-block {
-      background: url('IMG/Arquitectura.jpg') center/cover no-repeat;
-      background-color: #c09060;
-    }
-    .card-3 .color-block {
-      background: url('IMG/Fotografo.jpg') center/cover no-repeat;
-      background-color: #7a6248;
-    }
-    .card-4 .color-block {
-      background: url('IMG/Tecnico IT.jpg') center/cover no-repeat;
-      background-color: #2c3e50;
-    }
-    .card-pattern { display: none; }
-    .card-overlay {
+    #hero-immersive .nav-links a { color: rgba(200,191,171,0.6); }
+    #hero-immersive .nav-links a:hover { color: #f5f0e8; }
+    .ir-capa {
       position: absolute; inset: 0;
-      background: rgba(26,19,10,0.65);
-      opacity: 0;
-      transition: opacity 0.4s ease;
+      will-change: transform, opacity;
+      transform-origin: center center;
+    }
+    #ir-cielo {
+      background: #1a2535; transform: scale(1.8); opacity: 0;
+      transition: transform 3s cubic-bezier(0.16,1,0.3,1), opacity 1.2s ease;
+    }
+    #ir-foto {
+      background-image: url('Img/urbano.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(2.2); opacity: 0;
+      transition: transform 3s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 1s ease 0.1s;
+    }
+    #ir-niebla {
+      background: radial-gradient(ellipse at 50% 85%, rgba(42,52,65,0.55) 0%, transparent 65%);
+      transform: scale(1.4) translateY(40px); opacity: 0;
+      transition: transform 3.2s cubic-bezier(0.16,1,0.3,1) 0.3s, opacity 1.5s ease 0.3s;
+    }
+    #ir-vignette {
+      background: radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(8,6,4,0.72) 100%);
+      opacity: 0; transition: opacity 1.6s ease 0.5s;
+    }
+    .ir-mask {
+      position: absolute; background: #0c0905; z-index: 20;
+      transition: transform 1.5s cubic-bezier(0.76,0,0.24,1);
+    }
+    #ir-tl { top:0; left:0;   width:50%; height:50%; transform-origin: top left; }
+    #ir-tr { top:0; right:0;  width:50%; height:50%; transform-origin: top right; }
+    #ir-bl { bottom:0; left:0;  width:50%; height:50%; transform-origin: bottom left; }
+    #ir-br { bottom:0; right:0; width:50%; height:50%; transform-origin: bottom right; }
+    #ir-tl.ir-open { transform: translate(-100%,-100%); }
+    #ir-tr.ir-open { transform: translate(100%,-100%); }
+    #ir-bl.ir-open { transform: translate(-100%,100%); }
+    #ir-br.ir-open { transform: translate(100%,100%); }
+    #ir-cruz {
+      position: absolute; inset: 0; z-index: 25;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .ir-cruz-h, .ir-cruz-v {
+      position: absolute; background: rgba(200,191,171,0.3);
+      transition: opacity 0.5s ease 1.2s;
+    }
+    .ir-cruz-h { width: 36px; height: 1px; }
+    .ir-cruz-v { width: 1px; height: 36px; }
+    #ir-cruz.ir-hide .ir-cruz-h,
+    #ir-cruz.ir-hide .ir-cruz-v { opacity: 0; }
+    #ir-texto {
+      position: absolute; inset: 0; z-index: 30;
       display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.2rem;
+      align-items: center; justify-content: center; gap: 0;
+      pointer-events: none;
     }
-    .card-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      color: var(--cream);
-      margin-bottom: 0.3rem;
+    .ir-eyebrow {
+      font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase;
+      color: rgba(200,191,171,0.65); margin-bottom: 1.4rem;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .card-sub {
-      font-size: 0.58rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--stone);
-    }
-    .card-meta { padding: 0.85rem 1rem; border-top: 1px solid var(--stone); }
-    .card-meta-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--ink-light);
-      margin-bottom: 3px;
-    }
-    .card-meta-sub {
-      font-size: 0.58rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--warm);
-    }
-
-    /* ── PRECIOS IT ── */
-    .pricing-section {
-      padding: 5rem 3rem;
-      border-top: 1px solid var(--stone);
-    }
-    .pricing-header { margin-bottom: 3rem; }
-    .pricing-header .section-title { margin-bottom: 0.5rem; }
-    .pricing-header p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 480px;
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--stone);
-      border: 1px solid var(--stone);
-    }
-    .pricing-card {
-      background: var(--cream);
-      padding: 2.5rem 2rem;
-      position: relative;
-      transition: background 0.3s;
-    }
-    .pricing-card:hover { background: #eee8da; }
-    .pricing-card.featured {
-      background: var(--ink);
-      color: var(--cream);
-    }
-    .pricing-card.featured:hover { background: #3a2e20; }
-    .plan-label {
-      font-size: 0.62rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 1.2rem;
-    }
-    .pricing-card.featured .plan-label { color: var(--stone); }
-    .plan-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 300;
-      margin-bottom: 0.5rem;
-      color: var(--ink-light);
-    }
-    .pricing-card.featured .plan-name { color: var(--cream); }
-    .plan-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      line-height: 1;
-      margin-bottom: 0.3rem;
-      color: var(--ink);
-    }
-    .pricing-card.featured .plan-price { color: var(--cream); }
-    .plan-price span {
-      font-size: 1rem;
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      color: var(--muted);
-    }
-    .pricing-card.featured .plan-price span { color: var(--stone); }
-    .plan-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-      line-height: 1.7;
-    }
-    .pricing-card.featured .plan-desc { color: #b0a898; }
-    .plan-features { list-style: none; margin-bottom: 2.5rem; }
-    .plan-features li {
-      font-size: 0.82rem;
-      color: var(--muted);
-      padding: 0.5rem 0;
-      border-bottom: 1px solid var(--stone);
-      display: flex;
-      gap: 0.6rem;
-      align-items: flex-start;
-      line-height: 1.5;
-    }
-    .pricing-card.featured .plan-features li { color: #c8bfab; border-bottom-color: #4a3828; }
-    .plan-features li::before {
-      content: '—';
-      color: var(--warm);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .pricing-card.featured .plan-features li::before { color: var(--stone); }
-    .plan-note {
-      font-size: 0.62rem;
-      letter-spacing: 1px;
-      color: var(--warm);
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .pricing-card.featured .plan-note { color: var(--stone); }
-
-    /* ── ABOUT ── */
-    .about-strip {
-      padding: 5rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      border-top: 1px solid var(--stone);
-      align-items: center;
-    }
-    .about-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem;
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-    .about-quote::before {
-      content: '"';
-      font-size: 5rem;
-      line-height: 0.6;
+    .ir-clip { overflow: hidden; line-height: 1.05; }
+    .ir-linea {
       display: block;
-      color: var(--stone);
-      margin-bottom: 0.5rem;
-    }
-    .about-body { color: var(--muted); font-size: 0.88rem; line-height: 1.9; }
-    .about-body p { margin-bottom: 1rem; }
-    .about-sig {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--warm);
-      margin-top: 1.5rem;
+      font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; color: #f5f0e8;
+      transform: translateY(110%);
+      transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
     }
-
-    /* ── CONTACTO ── */
-    .contact-section {
-      padding: 5rem 3rem;
-      border-top: 1px solid var(--stone);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
+    .ir-linea.italic { font-style: italic; color: #c8a878; }
+    .ir-divider { width: 0; height: 1px; background: #9c8060; transition: width 0.9s ease; margin: 1.6rem 0; }
+    .ir-sub {
+      font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase;
+      color: rgba(200,191,171,0.55);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .contact-info .section-title { margin-bottom: 1rem; }
-    .contact-info p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 2rem;
+    #ir-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 30; display: flex; flex-direction: column;
+      align-items: center; gap: 8px; opacity: 0;
+      transition: opacity 0.6s ease; text-decoration: none;
     }
-    .contact-detail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    #ir-scroll span {
+      font-size: 0.52rem; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(200,191,171,0.4);
     }
-    .contact-item {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    .ir-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, #9c8060, transparent);
+      animation: irScroll 2s ease-in-out infinite;
     }
-    .contact-item-label {
-      font-size: 0.6rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--warm);
+    @keyframes irScroll {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
     }
-    .contact-item-val {
-      font-size: 0.9rem;
-      color: var(--ink);
+    #ir-num {
+      position: absolute; bottom: 2.6rem; left: 3rem; z-index: 30;
+      font-size: 0.52rem; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(200,191,171,0.25); opacity: 0; transition: opacity 0.6s ease;
     }
-    /* Formulario */
-    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label {
-      font-size: 0.6rem;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--warm);
+    #ir-dots {
+      position: absolute; bottom: 2.8rem; right: 3rem; z-index: 30;
+      display: flex; gap: 8px; opacity: 0; transition: opacity 0.6s ease;
     }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--stone);
-      padding: 10px 0;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 300;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.3s;
-      width: 100%;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus { border-bottom-color: var(--ink); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-group select { appearance: none; cursor: pointer; }
-    .form-submit { margin-top: 0.5rem; }
-    .form-note {
-      font-size: 0.62rem;
-      color: var(--warm);
-      letter-spacing: 1px;
-      margin-top: 0.8rem;
-    }
-    #form-success {
-      display: none;
-      padding: 1rem;
-      border: 1px solid var(--stone);
-      font-size: 0.82rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem 3rem;
-      border-top: 1px solid var(--stone);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 300;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .footer-links { display: flex; gap: 2rem; }
-    .footer-links a {
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--warm);
-      transition: color 0.3s;
-    }
-    .footer-links a:hover { color: var(--ink); }
-    .footer-copy { font-size: 0.65rem; color: var(--stone); letter-spacing: 1px; }
-
-    /* ── ANIMACIONES ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.8s ease both; }
-    .fade-up-1 { animation-delay: 0.1s; }
-    .fade-up-2 { animation-delay: 0.25s; }
-    .fade-up-3 { animation-delay: 0.4s; }
-    .fade-up-4 { animation-delay: 0.55s; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-visual { min-height: 320px; }
-      .hero-text { padding: 3rem 1.5rem; border-right: none; border-bottom: 1px solid var(--stone); }
-      .series { padding: 3rem 1.5rem; }
-      .series-grid { grid-template-columns: 1fr 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .about-strip { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-      .contact-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.5rem; }
-      .form-row { grid-template-columns: 1fr; }
-      .divider { padding: 2rem 1.5rem; }
-      .pricing-section { padding: 3rem 1.5rem; }
-      footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
-    }
-    @media (max-width: 560px) {
-      .series-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
+    .ir-dot { width: 24px; height: 1px; background: rgba(200,191,171,0.2); }
+    .ir-dot.activo { background: #9c8060; width: 36px; }
+    #ir-barra { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(200,191,171,0.06); z-index: 30; }
+    #ir-barra-fill { height: 100%; width: 0; background: #9c8060; }
+    a.series-card { display: block; text-decoration: none; color: inherit; }
   </style>
 </head>
-
 <body>
 
-<!-- NAV -->
-<nav>
+<div id="hero-immersive">
   <a href="#" class="nav-brand">Danielandrei</a>
-  <ul class="nav-links">
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#servicios-it">Servicios IT</a></li>
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-text">
-    <p class="eyebrow fade-up fade-up-1">Paisaje · Arquitectura · Urbano · Servicios IT</p>
-    <h1 class="hero-title fade-up fade-up-2">
-      La luz que<br>
-      <em>detiene</em><br>
-      el tiempo
-    </h1>
-    <p class="hero-desc fade-up fade-up-3">
-      Fotografía de paisaje, arquitectura clásica y vida urbana. También reparación y mantenimiento informático. Cada proyecto, con la misma atención al detalle.
-    </p>
-    <a href="#portfolio" class="btn fade-up fade-up-4">Ver portfolio</a>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#servicios-it">Servicios IT</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+  <div class="ir-capa" id="ir-cielo"></div>
+  <div class="ir-capa" id="ir-foto"></div>
+  <div class="ir-capa" id="ir-niebla"></div>
+  <div class="ir-capa" id="ir-vignette"></div>
+  <div class="ir-mask" id="ir-tl"></div>
+  <div class="ir-mask" id="ir-tr"></div>
+  <div class="ir-mask" id="ir-bl"></div>
+  <div class="ir-mask" id="ir-br"></div>
+  <div id="ir-cruz"><div class="ir-cruz-h"></div><div class="ir-cruz-v"></div></div>
+  <div id="ir-texto">
+    <div class="ir-eyebrow" id="ir-eyebrow">Daniel Andrei · Fotografía & IT</div>
+    <div class="ir-clip"><span class="ir-linea" id="ir-l1">La luz que</span></div>
+    <div class="ir-clip"><span class="ir-linea italic" id="ir-l2">detiene el tiempo</span></div>
+    <div class="ir-divider" id="ir-div"></div>
+    <div class="ir-sub" id="ir-sub">Paisaje · Arquitectura · Urbano · Servicios IT</div>
   </div>
-  <div class="hero-visual">
-    <div class="scan-line"></div>
-    <svg class="arch-svg" viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <rect width="500" height="600" fill="#3d4f5c"/>
-      <rect x="0" y="360" width="500" height="240" fill="#2a3540"/>
-      <rect x="0" y="0" width="500" height="80" fill="#4a6070" opacity="0.5"/>
-      <path class="arch-path" d="M60 580 L60 300 Q60 240 110 240 Q160 240 160 300 L160 580" fill="none" stroke="#c8bfab" stroke-width="1.5" opacity="0.6"/>
-      <path class="arch-path" d="M160 580 L160 320 Q160 260 210 260 Q260 260 260 320 L260 580" fill="none" stroke="#c8bfab" stroke-width="1.5" opacity="0.5"/>
-      <path class="arch-path" d="M260 580 L260 340 Q260 280 310 280 Q360 280 360 340 L360 580" fill="none" stroke="#c8bfab" stroke-width="1.5" opacity="0.4"/>
-      <path class="arch-path" d="M360 580 L360 360 Q360 300 410 300 Q460 300 460 360 L460 580" fill="none" stroke="#c8bfab" stroke-width="1.5" opacity="0.3"/>
-      <rect x="0" y="400" width="80" height="180" fill="#1e2a32" opacity="0.5"/>
-      <rect x="160" y="400" width="80" height="180" fill="#1e2a32" opacity="0.4"/>
-      <rect x="320" y="400" width="80" height="180" fill="#1e2a32" opacity="0.35"/>
-      <rect x="56" y="240" width="8" height="340" fill="#b0a090" opacity="0.4"/>
-      <rect x="156" y="260" width="8" height="320" fill="#b0a090" opacity="0.35"/>
-      <rect x="256" y="280" width="8" height="300" fill="#b0a090" opacity="0.3"/>
-      <rect x="356" y="300" width="8" height="280" fill="#b0a090" opacity="0.25"/>
-      <rect x="230" y="340" width="8" height="28" fill="#c8bfab" opacity="0.5" rx="2"/>
-      <circle cx="234" cy="335" r="5" fill="#c8bfab" opacity="0.5"/>
-    </svg>
-    <div class="photo-caption">Aranjuez, 2024</div>
+  <div id="ir-num">001 · Benidorm, 2024</div>
+  <div id="ir-dots">
+    <div class="ir-dot activo"></div>
+    <div class="ir-dot"></div>
+    <div class="ir-dot"></div>
   </div>
-</section>
+  <a href="#portfolio" id="ir-scroll">
+    <span>scroll</span>
+    <div class="ir-scroll-line"></div>
+  </a>
+  <div id="ir-barra"><div id="ir-barra-fill"></div></div>
+</div>
 
-<!-- DIVIDER -->
+<!-- Flash effect -->
+<div id="flash-overlay"></div>
+
 <div class="divider">
   <div class="divider-line"></div>
   <span class="divider-text">Portfolio y servicios</span>
   <div class="divider-line"></div>
 </div>
 
-<!-- SERIES / PORTFOLIO -->
 <section class="series" id="portfolio">
   <div class="series-header">
     <h2 class="section-title">Trabajo seleccionado</h2>
@@ -620,156 +202,43 @@
   </div>
   <div class="series-grid">
 
-    <!-- Urbano -->
-    <div class="series-card card-1">
+    <a href="galeria-paisaje.html" class="series-card card-1">
       <div class="color-block">
-        <svg class="card-pattern" viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="260" fill="#3d4f5c"/>
-          <rect x="0" y="180" width="200" height="80" fill="#2a3540"/>
-          <rect x="10" y="110" width="14" height="70" fill="#4a6070"/>
-          <rect x="26" y="90" width="10" height="90" fill="#5a7080"/>
-          <rect x="38" y="100" width="16" height="80" fill="#4a6070"/>
-          <rect x="56" y="70" width="12" height="110" fill="#6a8090"/>
-          <rect x="70" y="95" width="18" height="85" fill="#4a6070"/>
-          <rect x="90" y="55" width="10" height="125" fill="#7a9098"/>
-          <rect x="102" y="80" width="14" height="100" fill="#5a7080"/>
-          <rect x="118" y="115" width="18" height="65" fill="#4a6070"/>
-          <rect x="138" y="75" width="12" height="105" fill="#6a8090"/>
-          <rect x="152" y="60" width="16" height="120" fill="#7a9098"/>
-          <rect x="170" y="100" width="14" height="80" fill="#5a7080"/>
-        </svg>
-        <div class="card-overlay">
-          <div class="card-label">Ciudad vertical</div>
-          <div class="card-sub">Benidorm · 2026</div>
-        </div>
+        <div class="card-overlay"><div class="card-label">Ciudad vertical</div><div class="card-sub">Benidorm · 2026</div></div>
       </div>
-      <div class="card-meta">
-        <div class="card-meta-title">Paisaje urbano</div>
-        <div class="card-meta-sub">12 fotografías</div>
-      </div>
-    </div>
+      <div class="card-meta"><div class="card-meta-title">Paisaje</div><div class="card-meta-sub">12 fotografías</div></div>
+    </a>
 
-    <!-- Arcos -->
-    <div class="series-card card-2">
+    <a href="galeria-arquitectura.html" class="series-card card-2">
       <div class="color-block">
-        <svg class="card-pattern" viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="260" fill="#c09060"/>
-          <rect x="0" y="160" width="200" height="100" fill="#8a6030"/>
-          <path d="M15 260 L15 120 Q15 90 40 90 Q65 90 65 120 L65 260" fill="none" stroke="#f5f0e8" stroke-width="2" opacity="0.5"/>
-          <path d="M65 260 L65 135 Q65 105 90 105 Q115 105 115 135 L115 260" fill="none" stroke="#f5f0e8" stroke-width="1.5" opacity="0.4"/>
-          <path d="M115 260 L115 150 Q115 120 140 120 Q165 120 165 150 L165 260" fill="none" stroke="#f5f0e8" stroke-width="1.2" opacity="0.3"/>
-          <rect x="0" y="170" width="30" height="90" fill="#5a3a10" opacity="0.4"/>
-          <rect x="65" y="180" width="30" height="80" fill="#5a3a10" opacity="0.35"/>
-          <rect x="130" y="190" width="30" height="70" fill="#5a3a10" opacity="0.3"/>
-        </svg>
-        <div class="card-overlay">
-          <div class="card-label">Luz y sombra</div>
-          <div class="card-sub">Benidorm · 2026</div>
-        </div>
+        <div class="card-overlay"><div class="card-label">Luz y sombra</div><div class="card-sub">Benidorm · 2026</div></div>
       </div>
-      <div class="card-meta">
-        <div class="card-meta-title">Arquitectura</div>
-        <div class="card-meta-sub">8 fotografías</div>
-      </div>
-    </div>
+      <div class="card-meta"><div class="card-meta-title">Arquitectura</div><div class="card-meta-sub">8 fotografías</div></div>
+    </a>
 
-    <!-- Palacio -->
-    <div class="series-card card-3">
+    <a href="galeria-naturaleza.html" class="series-card card-3">
       <div class="color-block">
-        <svg class="card-pattern" viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="170" fill="#4a6090"/>
-          <rect x="0" y="170" width="200" height="90" fill="#7a6248"/>
-          <ellipse cx="60" cy="50" rx="70" ry="25" fill="#f5f0e8" opacity="0.6"/>
-          <ellipse cx="155" cy="65" rx="50" ry="18" fill="#f5f0e8" opacity="0.4"/>
-          <rect x="20" y="120" width="160" height="50" fill="#b87040"/>
-          <rect x="80" y="90" width="40" height="30" fill="#c07840"/>
-          <ellipse cx="100" cy="90" rx="20" ry="12" fill="#4a4050"/>
-          <rect x="30" y="128" width="7" height="10" fill="#d4a070" opacity="0.6"/>
-          <rect x="48" y="128" width="7" height="10" fill="#d4a070" opacity="0.6"/>
-          <rect x="66" y="128" width="7" height="10" fill="#d4a070" opacity="0.6"/>
-          <rect x="114" y="128" width="7" height="10" fill="#d4a070" opacity="0.6"/>
-          <rect x="132" y="128" width="7" height="10" fill="#d4a070" opacity="0.6"/>
-          <rect x="150" y="128" width="7" height="10" fill="#d4a070" opacity="0.6"/>
-        </svg>
-        <div class="card-overlay">
-          <div class="card-label">Real sitio</div>
-          <div class="card-sub">Aranjuez · 2026</div>
-        </div>
+        <div class="card-overlay"><div class="card-label">Peace</div><div class="card-sub">Salzburgo · 2026</div></div>
       </div>
-      <div class="card-meta">
-        <div class="card-meta-title">Arte</div>
-        <div class="card-meta-sub">15 fotografías</div>
-      </div>
-    </div>
+      <div class="card-meta"><div class="card-meta-title">Naturaleza</div><div class="card-meta-sub">15 fotografías</div></div>
+    </a>
 
-    <!-- Servicios IT -->
-    <div class="series-card card-4">
+    <a href="#servicios-it" class="series-card card-4">
       <div class="color-block">
-        <svg class="card-pattern" viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="260" fill="#2c3e50"/>
-          <rect x="30" y="50" width="140" height="95" rx="4" fill="#1a2535"/>
-          <rect x="38" y="58" width="124" height="79" fill="#0f1a28"/>
-          <rect x="46" y="68" width="30" height="4" rx="1" fill="#5a8a6a" opacity="0.9"/>
-          <rect x="46" y="68" width="100" height="4" rx="1" fill="#2a4535" opacity="0.5"/>
-          <rect x="46" y="78" width="55" height="4" rx="1" fill="#8a7a3a" opacity="0.9"/>
-          <rect x="46" y="78" width="100" height="4" rx="1" fill="#2a4535" opacity="0.5"/>
-          <rect x="46" y="88" width="80" height="4" rx="1" fill="#5a8a6a" opacity="0.9"/>
-          <rect x="46" y="88" width="100" height="4" rx="1" fill="#2a4535" opacity="0.5"/>
-          <rect x="46" y="98" width="20" height="4" rx="1" fill="#8a4a3a" opacity="0.9"/>
-          <rect x="46" y="98" width="100" height="4" rx="1" fill="#2a4535" opacity="0.5"/>
-          <rect x="46" y="108" width="70" height="4" rx="1" fill="#5a8a6a" opacity="0.9"/>
-          <rect x="46" y="108" width="100" height="4" rx="1" fill="#2a4535" opacity="0.5"/>
-          <rect x="46" y="118" width="45" height="4" rx="1" fill="#8a7a3a" opacity="0.9"/>
-          <rect x="46" y="118" width="100" height="4" rx="1" fill="#2a4535" opacity="0.5"/>
-          <rect x="88" y="145" width="24" height="10" fill="#1a2535"/>
-          <rect x="68" y="155" width="64" height="4" rx="2" fill="#1a2535"/>
-          <rect x="52" y="175" width="5" height="50" rx="2" fill="#8a9aaa" opacity="0.85"/>
-          <rect x="48" y="170" width="13" height="10" rx="2" fill="#6a7a8a" opacity="0.9"/>
-          <rect x="53" y="222" width="3" height="8" rx="1" fill="#c8bfab" opacity="0.8"/>
-          <rect x="95" y="172" width="10" height="42" rx="3" fill="#8a9aaa" opacity="0.85"/>
-          <ellipse cx="100" cy="170" rx="10" ry="7" fill="#6a7a8a" opacity="0.9"/>
-          <ellipse cx="100" cy="170" rx="5" ry="3.5" fill="#1a2535" opacity="0.8"/>
-          <rect x="128" y="175" width="44" height="44" rx="3" fill="#1a2535" opacity="0.9"/>
-          <rect x="132" y="179" width="36" height="36" rx="2" fill="#2a3a4a" opacity="0.9"/>
-          <rect x="136" y="183" width="8" height="8" rx="1" fill="#4a6a8a" opacity="0.8"/>
-          <rect x="148" y="183" width="8" height="8" rx="1" fill="#4a6a8a" opacity="0.8"/>
-          <rect x="136" y="195" width="8" height="8" rx="1" fill="#4a6a8a" opacity="0.8"/>
-          <rect x="148" y="195" width="8" height="8" rx="1" fill="#3a5a6a" opacity="0.6"/>
-          <rect x="136" y="207" width="20" height="4" rx="1" fill="#5a7a8a" opacity="0.7"/>
-          <rect x="126" y="183" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="126" y="189" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="126" y="195" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="126" y="201" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="172" y="183" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="172" y="189" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="172" y="195" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <rect x="172" y="201" width="4" height="2" rx="1" fill="#8a9aaa" opacity="0.6"/>
-          <circle cx="164" cy="228" r="4" fill="#5a8a6a" opacity="0.9">
-            <animate attributeName="opacity" values="0.9;0.2;0.9" dur="1.8s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-        <div class="card-overlay">
-          <div class="card-label">Diagnóstico y reparación</div>
-          <div class="card-sub">Hardware · Software · Equipos</div>
-        </div>
+        <div class="card-overlay"><div class="card-label">Diagnóstico y reparación</div><div class="card-sub">Hardware · Software · Equipos</div></div>
       </div>
-      <div class="card-meta">
-        <div class="card-meta-title">Servicios IT</div>
-        <div class="card-meta-sub">Reparación y mantenimiento</div>
-      </div>
-    </div>
+      <div class="card-meta"><div class="card-meta-title">Servicios IT</div><div class="card-meta-sub">Reparación y mantenimiento</div></div>
+    </a>
 
   </div>
 </section>
 
-<!-- PRECIOS IT -->
 <section class="pricing-section" id="servicios-it">
   <div class="pricing-header">
     <h2 class="section-title">Servicios IT</h2>
     <p>Reparación y mantenimiento de equipos informáticos. Diagnóstico sin compromiso. Precios claros desde el primer momento.</p>
   </div>
   <div class="pricing-grid">
-
     <div class="pricing-card">
       <div class="plan-label">Básico</div>
       <div class="plan-name">Diagnóstico</div>
@@ -781,9 +250,8 @@
         <li>Atención presencial o remota</li>
         <li>Respuesta en 24–48 h</li>
       </ul>
-      <a href="#contacto" class="btn" style="display:block; text-align:center;">Solicitar diagnóstico</a>
+      <a href="#contacto" class="btn">Solicitar diagnóstico</a>
     </div>
-
     <div class="pricing-card featured">
       <div class="plan-label">Más solicitado</div>
       <div class="plan-name">Reparación</div>
@@ -796,10 +264,9 @@
         <li>Recuperación de datos</li>
         <li>Sustitución de componentes</li>
       </ul>
-      <a href="#contacto" class="btn btn-filled" style="display:block; text-align:center; background:#f5f0e8; color:#2a2118; border-color:#f5f0e8;">Pedir presupuesto</a>
+      <a href="#contacto" class="btn btn-cream">Pedir presupuesto</a>
       <p class="plan-note">Los componentes se presupuestan aparte</p>
     </div>
-
     <div class="pricing-card">
       <div class="plan-label">Empresas y autónomos</div>
       <div class="plan-name">Mantenimiento</div>
@@ -812,25 +279,20 @@
         <li>Copia de seguridad supervisada</li>
         <li>Hasta 3 equipos incluidos</li>
       </ul>
-      <a href="#contacto" class="btn" style="display:block; text-align:center;">Más información</a>
+      <a href="#contacto" class="btn">Más información</a>
     </div>
-
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="about-strip" id="sobre-mi">
-  <blockquote class="about-quote">
-    La arquitectura es música congelada. Yo solo escucho con la cámara.
-  </blockquote>
+  <blockquote class="about-quote">La arquitectura es música congelada. Yo solo escucho con la cámara.</blockquote>
   <div class="about-body">
-    <p>Me llamo Danielandrei. Me muevo entre el paisaje y la ciudad buscando esos instantes donde la luz hace visible lo que siempre estuvo ahí — columnas, arcos, fachadas que llevan siglos mirando el mismo horizonte.</p>
+    <p>Me llamo Daniel Andrei. Me muevo entre el paisaje y la ciudad buscando esos instantes donde la luz hace visible lo que siempre estuvo ahí — columnas, arcos, fachadas que llevan siglos mirando el mismo horizonte.</p>
     <p>Paralelamente ofrezco servicios de reparación y mantenimiento informático, con la misma atención al detalle que aplico a cada fotografía. Trabajo con particulares, autónomos y pequeñas empresas.</p>
-    <div class="about-sig">— Danielandrei · Fotografía & IT</div>
+    <div class="about-sig">— Daniel Andrei · Fotografía & IT</div>
   </div>
 </section>
 
-<!-- CONTACTO -->
 <section class="contact-section" id="contacto">
   <div class="contact-info">
     <h2 class="section-title">Contacto</h2>
@@ -850,7 +312,6 @@
       </div>
     </div>
   </div>
-
   <div>
     <form class="contact-form" id="contactForm">
       <div class="form-row">
@@ -886,9 +347,8 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-brand">Danielandrei</span>
+  <span class="footer-brand">Daniel Andrei</span>
   <nav class="footer-links">
     <a href="#portfolio">Portfolio</a>
     <a href="#servicios-it">Servicios IT</a>
@@ -898,37 +358,111 @@
   <span class="footer-copy">© 2025 · Todos los derechos reservados</span>
 </footer>
 
-<script>
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var nombre  = document.getElementById('nombre').value;
-    var email   = document.getElementById('email').value;
-    var asunto  = document.getElementById('asunto').value || 'Consulta';
-    var mensaje = document.getElementById('mensaje').value;
-    var body    = 'Nombre: ' + nombre + '\nEmail: ' + email + '\n\n' + mensaje;
-    window.location.href = 'mailto:danielmarcosandrei@gmail.com'
-      + '?subject=' + encodeURIComponent(asunto + ' - ' + nombre)
-      + '&body='    + encodeURIComponent(body);
-    document.getElementById('form-success').style.display = 'block';
-  });
-
-  // Fade-up al hacer scroll
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.series-card, .pricing-card, .about-strip, .contact-section').forEach(function(el) {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-    observer.observe(el);
-  });
-</script>
+<script src="script.js"></script>
 <script src="loader.js"></script>
+<script>
+(function() {
+  var listo = false;
+  var cielo    = document.getElementById('ir-cielo');
+  var foto     = document.getElementById('ir-foto');
+  var niebla   = document.getElementById('ir-niebla');
+  var vignette = document.getElementById('ir-vignette');
+  var masks    = ['ir-tl','ir-tr','ir-bl','ir-br'].map(function(id){ return document.getElementById(id); });
+  var cruz     = document.getElementById('ir-cruz');
+  var eyebrow  = document.getElementById('ir-eyebrow');
+  var l1       = document.getElementById('ir-l1');
+  var l2       = document.getElementById('ir-l2');
+  var divEl    = document.getElementById('ir-div');
+  var sub      = document.getElementById('ir-sub');
+  var num      = document.getElementById('ir-num');
+  var dots     = document.getElementById('ir-dots');
+  var scrollEl = document.getElementById('ir-scroll');
+  var barraFill= document.getElementById('ir-barra-fill');
+
+  setTimeout(function() {
+    cielo.style.transform  = 'scale(1)';  cielo.style.opacity  = '1';
+    foto.style.transform   = 'scale(1)';  foto.style.opacity   = '1';
+    niebla.style.transform = 'scale(1) translateY(0)'; niebla.style.opacity = '1';
+    vignette.style.opacity = '1';
+  }, 60);
+
+  var prog = 0;
+  barraFill.style.transition = 'width 0.05s linear';
+  var bt = setInterval(function() {
+    prog += 1;
+    if (prog >= 100) { prog = 100; clearInterval(bt); }
+    barraFill.style.width = prog + '%';
+  }, 30);
+
+  setTimeout(function() { masks.forEach(function(m){ m.classList.add('ir-open'); }); }, 700);
+  setTimeout(function() { cruz.classList.add('ir-hide'); }, 900);
+
+  setTimeout(function() {
+    eyebrow.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    eyebrow.style.opacity = '1'; eyebrow.style.transform = 'translateY(0)';
+  }, 1500);
+  setTimeout(function() {
+    l1.style.transition = 'transform 1.1s cubic-bezier(0.16,1,0.3,1)';
+    l1.style.transform  = 'translateY(0)';
+  }, 1700);
+  setTimeout(function() {
+    l2.style.transition = 'transform 1.1s cubic-bezier(0.16,1,0.3,1)';
+    l2.style.transform  = 'translateY(0)';
+  }, 1900);
+  setTimeout(function() {
+    divEl.style.transition = 'width 0.9s ease'; divEl.style.width = '80px';
+  }, 2200);
+  setTimeout(function() {
+    sub.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    sub.style.opacity = '1'; sub.style.transform = 'translateY(0)';
+  }, 2400);
+  setTimeout(function() {
+    num.style.transition   = 'opacity 0.6s ease'; num.style.opacity   = '1';
+    dots.style.transition  = 'opacity 0.6s ease'; dots.style.opacity  = '1';
+    scrollEl.style.transition = 'opacity 0.6s ease'; scrollEl.style.opacity = '1';
+    listo = true;
+  }, 2700);
+
+  var hero = document.getElementById('hero-immersive');
+  hero.addEventListener('mousemove', function(e) {
+    if (!listo) return;
+    var rect = this.getBoundingClientRect();
+    var x = (e.clientX - rect.left) / rect.width  - 0.5;
+    var y = (e.clientY - rect.top)  / rect.height - 0.5;
+    foto.style.transition   = 'transform 0.9s ease';
+    niebla.style.transition = 'transform 0.9s ease';
+    cielo.style.transition  = 'transform 0.9s ease';
+    foto.style.transform   = 'scale(1.04) translate(' + (x*-14) + 'px,' + (y*-9) + 'px)';
+    niebla.style.transform = 'scale(1.02) translate(' + (x*-22) + 'px,' + (y*-7) + 'px)';
+    cielo.style.transform  = 'scale(1.02) translate(' + (x*-6)  + 'px,' + (y*-4) + 'px)';
+  });
+  hero.addEventListener('mouseleave', function() {
+    if (!listo) return;
+    [foto, niebla, cielo].forEach(function(el) {
+      el.style.transition = 'transform 1.4s ease';
+      el.style.transform  = 'scale(1) translate(0,0)';
+    });
+  });
+})();
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var nombre  = document.getElementById('nombre').value;
+  var correo  = document.getElementById('email').value;
+  var asunto  = document.getElementById('asunto').value || 'Consulta';
+  var mensaje = document.getElementById('mensaje').value;
+  var cuerpo  = 'Nombre: ' + nombre + '\nEmail: ' + correo + '\n\n' + mensaje;
+  window.location.href = 'mailto:danielmarcosandrei@gmail.com'
+    + '?subject=' + encodeURIComponent(asunto + ' - ' + nombre)
+    + '&body='    + encodeURIComponent(cuerpo);
+  document.getElementById('form-success').style.display = 'block';
+});
+</script>
+
+<!-- Audio para el flash -->
+<audio id="flash-sound" preload="auto">
+  <source src="Camera-Flash.mp3" type="audio/mpeg">
+</audio>
+
 </body>
 </html>
