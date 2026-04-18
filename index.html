@@ -25,9 +25,20 @@
       position: absolute; top: 0; right: 0; z-index: 50;
       background: transparent;
       border-bottom: 1px solid rgba(200,191,171,0.12);
-      padding: 1.6rem 3rem;
+      padding: 1.2rem 1.5rem;
       display: flex;
       align-items: center;
+      gap: 1rem;
+    }
+    #hero-immersive .nav-toggle {
+      display: none;
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: #f5f0e8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
     }
     #hero-immersive .nav-links a { color: rgba(200,191,171,0.6); }
     #hero-immersive .nav-links a:hover { color: #f5f0e8; }
@@ -143,6 +154,102 @@
     #ir-barra { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(200,191,171,0.06); z-index: 30; }
     #ir-barra-fill { height: 100%; width: 0; background: #9c8060; }
     a.series-card { display: block; text-decoration: none; color: inherit; }
+
+    @media (max-width: 900px) {
+      #hero-immersive { min-height: 85vh; }
+      #hero-immersive nav {
+        padding: 1rem 1.2rem;
+      }
+      #hero-immersive .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      #hero-immersive .nav-links a {
+        font-size: 0.68rem;
+      }
+      #ir-texto {
+        padding: 2rem 1.5rem 4rem;
+      }
+      .ir-linea {
+        font-size: clamp(2.5rem, 8vw, 4.2rem);
+      }
+      .ir-linea.italic {
+        font-size: clamp(2rem, 7vw, 3.5rem);
+      }
+      #ir-num { left: 1rem; }
+      #ir-dots { right: 1rem; }
+      #ir-barra { left: 1rem; right: 1rem; }
+    }
+
+    @media (max-width: 560px) {
+      #hero-immersive nav {
+        padding: 0.9rem 1rem;
+        position: relative;
+        justify-content: flex-end;
+      }
+      #hero-immersive .nav-toggle {
+        display: block;
+      }
+      #hero-immersive .nav-links {
+        gap: 0.7rem;
+        display: flex;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: auto;
+        background: rgba(12, 9, 5, 0.96);
+        padding: 0 1rem;
+        border: 1px solid rgba(200,191,171,0.16);
+        border-radius: 0 0 0 10px;
+        flex-direction: column;
+        width: min(220px, 90vw);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform-origin: top right;
+        transform: scaleY(0.95);
+        transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+      }
+      #hero-immersive .nav-links.open {
+        max-height: 260px;
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+      }
+      #hero-immersive .nav-links li {
+        margin: 0;
+      }
+      #hero-immersive .nav-links a {
+        display: block;
+        padding: 0.7rem 0;
+        color: #f5f0e8;
+      }
+      .ir-texto {
+        padding: 1.5rem 1rem 3rem;
+      }
+      .ir-eyebrow,
+      .ir-sub {
+        font-size: 0.55rem;
+        letter-spacing: 3px;
+      }
+      .ir-linea {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+      .ir-linea.italic {
+        font-size: clamp(1.7rem, 9vw, 2.4rem);
+      }
+      #ir-num,
+      #ir-dots {
+        bottom: 1rem;
+      }
+      #ir-scroll {
+        bottom: 0.8rem;
+      }
+      #ir-barra { left: 0.8rem; right: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -150,6 +257,7 @@
 <div id="hero-immersive">
   <a href="#" class="nav-brand">Daniel Andrei</a>
   <nav>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">☰</button>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#servicios-it">Servicios IT</a></li>

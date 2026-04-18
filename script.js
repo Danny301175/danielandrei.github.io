@@ -198,3 +198,28 @@ if (hero) {
     }, 200); // Tiempo del flash
   });
 }
+
+/* ──────────────────────────────────────────
+   6. MENÚ HAMBURGUESA EN MÓVIL
+   ────────────────────────────────────────── */
+var navToggle = document.getElementById('nav-toggle');
+var navLinks  = document.querySelector('.nav-links');
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', function(event) {
+    event.stopPropagation();
+    navLinks.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!navLinks.contains(event.target) && event.target !== navToggle) {
+      navLinks.classList.remove('open');
+    }
+  });
+
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+    });
+  });
+}
