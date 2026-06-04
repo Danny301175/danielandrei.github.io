@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Andrei · Fotografía & Servicios IT</title>
-  <meta name="description" content="Fotografía de paisaje, arquitectura y urbano. Servicios IT de reparación y mantenimiento. Daniel Andrei." />
+  <title>Daniel Andrei · Fotografía </title>
+  <meta name="description" content="Fotografía de paisaje, arquitectura y urbano. Daniel Andrei." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     #hero-immersive {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-      min-height: 600px; overflow: hidden; background: #0c0905;
-      cursor: pointer; /* Indicar que es clickeable */
-      z-index: 1000;
+      position: relative; width: 100%; min-height: 100vh;
+      overflow: hidden; background: #0c0905;
     }
     #hero-immersive .nav-brand {
       position: absolute; top: 0; left: 0; z-index: 50;
@@ -52,10 +50,10 @@
       transition: transform 3s cubic-bezier(0.16,1,0.3,1), opacity 1.2s ease;
     }
     #ir-foto {
-      background-image: url('Img/Urbano.jpg');
+      background-image: url('SPaisajeFondo.jpg');
       background-size: cover;
       background-position: center;
-      transform: scale(2.2); opacity: 0;
+      transform: scale(1.5); opacity: 0;
       transition: transform 3s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 1s ease 0.1s;
     }
     #ir-niebla {
@@ -154,6 +152,10 @@
     #ir-barra { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(200,191,171,0.06); z-index: 30; }
     #ir-barra-fill { height: 100%; width: 0; background: #9c8060; }
     a.series-card { display: block; text-decoration: none; color: inherit; }
+
+    .oculto {
+      display: none !important;
+    }
 
     @media (max-width: 900px) {
       #hero-immersive { min-height: 85vh; }
@@ -260,7 +262,6 @@
     <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">☰</button>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#servicios-it">Servicios IT</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
@@ -275,13 +276,13 @@
   <div class="ir-mask" id="ir-br"></div>
   <div id="ir-cruz"><div class="ir-cruz-h"></div><div class="ir-cruz-v"></div></div>
   <div id="ir-texto">
-    <div class="ir-eyebrow" id="ir-eyebrow">Daniel Andrei · Fotografía & IT</div>
+    <div class="ir-eyebrow" id="ir-eyebrow">Daniel Andrei · Fotografía </div>
     <div class="ir-clip"><span class="ir-linea" id="ir-l1">La luz que</span></div>
     <div class="ir-clip"><span class="ir-linea italic" id="ir-l2">detiene el tiempo</span></div>
     <div class="ir-divider" id="ir-div"></div>
-    <div class="ir-sub" id="ir-sub">Paisaje · Arquitectura · Urbano · Servicios IT</div>
+    <div class="ir-sub" id="ir-sub">Paisaje · Arquitectura · Urbano ·</div>
   </div>
-  <div id="ir-num">001 · Benidorm, 2024</div>
+  <div id="ir-num">001 · Salzburgo, 2026</div>
   <div id="ir-dots">
     <div class="ir-dot activo"></div>
     <div class="ir-dot"></div>
@@ -299,14 +300,14 @@
 
 <div class="divider">
   <div class="divider-line"></div>
-  <span class="divider-text">Portfolio y servicios</span>
+  <span class="divider-text">Portfolio</span>
   <div class="divider-line"></div>
 </div>
 
 <section class="series" id="portfolio">
   <div class="series-header">
     <h2 class="section-title">Trabajo seleccionado</h2>
-    <span class="series-count">04 categorías</span>
+    <span class="series-count">03 categorías</span>
   </div>
   <div class="series-grid">
 
@@ -330,18 +331,10 @@
       </div>
       <div class="card-meta"><div class="card-meta-title">Naturaleza</div><div class="card-meta-sub">15 fotografías</div></div>
     </a>
-
-    <a href="#servicios-it" class="series-card card-4">
-      <div class="color-block">
-        <div class="card-overlay"><div class="card-label">Diagnóstico y reparación</div><div class="card-sub">Hardware · Software · Equipos</div></div>
-      </div>
-      <div class="card-meta"><div class="card-meta-title">Servicios IT</div><div class="card-meta-sub">Reparación y mantenimiento</div></div>
-    </a>
-
   </div>
 </section>
 
-<section class="pricing-section" id="servicios-it">
+<section class="pricing-section oculto" id="servicios-it">
   <div class="pricing-header">
     <h2 class="section-title">Servicios IT</h2>
     <p>Reparación y mantenimiento de equipos informáticos. Diagnóstico sin compromiso. Precios claros desde el primer momento.</p>
@@ -393,11 +386,11 @@
 </section>
 
 <section class="about-strip" id="sobre-mi">
-  <blockquote class="about-quote">La arquitectura es música congelada. Yo solo escucho con la cámara.</blockquote>
+  <blockquote class="about-quote">El ambiente y la luz es música congelada. Yo escucho con la cámara.</blockquote>
   <div class="about-body">
     <p>Me llamo Daniel Andrei. Me muevo entre el paisaje y la ciudad buscando esos instantes donde la luz hace visible lo que siempre estuvo ahí — columnas, arcos, fachadas que llevan siglos mirando el mismo horizonte.</p>
-    <p>Paralelamente ofrezco servicios de reparación y mantenimiento informático, con la misma atención al detalle que aplico a cada fotografía. Trabajo con particulares, autónomos y pequeñas empresas.</p>
-    <div class="about-sig">— Daniel Andrei · Fotografía & IT</div>
+    <p>Me identifico como una persona creativa que busca el momento perfecto para capturar la esencia de cada lugar y transmitirlo a través de la cámara.</p>
+    <div class="about-sig">— Daniel Andrei · Fotografía </div>
   </div>
 </section>
 
@@ -437,8 +430,6 @@
         <select id="asunto" name="asunto">
           <option value="">Selecciona un asunto</option>
           <option value="fotografia">Proyecto fotográfico</option>
-          <option value="reparacion">Reparación de equipo</option>
-          <option value="mantenimiento">Mantenimiento IT</option>
           <option value="otro">Otro</option>
         </select>
       </div>
@@ -459,7 +450,6 @@
   <span class="footer-brand">Daniel Andrei</span>
   <nav class="footer-links">
     <a href="#portfolio">Portfolio</a>
-    <a href="#servicios-it">Servicios IT</a>
     <a href="#sobre-mi">Sobre mí</a>
     <a href="#contacto">Contacto</a>
   </nav>
