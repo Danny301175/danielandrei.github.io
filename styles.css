@@ -283,22 +283,22 @@ nav {
 }
 
 .card-1 .color-block {
-  background-image: url('../IMG/PORTADAS/Urbano.webp');
+  background-image: url('Img/Urbano.webp');
   background-size: cover;
   background-position: center;
 }
 .card-2 .color-block {
-  background-image: url('../IMG/PORTADAS/Arquitectura.webp');
+  background-image: url('Img/Arquitectura.webp');
   background-size: cover;
   background-position: center;
 }
 .card-3 .color-block {
-  background-image: url('../IMG/PORTADAS/Naturaleza.webp');
+  background-image: url('Img/Naturaleza.webp');
   background-size: cover;
   background-position: center;
 }
 .card-4 .color-block {
-  background-image: url('../IMG/PORTADAS/Tecnico IT.webp');
+  background-image: url('Img/Tecnico IT.webp');
   background-size: cover;
   background-position: center;
 }
