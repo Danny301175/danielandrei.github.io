@@ -283,21 +283,21 @@ nav {
 }
 
 .card-1 .color-block {
-  background-image: url('Img/Urbano.jpg');
+  background-image: url('Img/Urbano.webp');
   background-size: cover;
   background-position: center;
 }
 .card-2 .color-block {
-  background-image: url('Img/Arquitectura.jpg');
+  background-image: url('Img/Arquitectura.webp');
   background-size: cover;
   background-position: center;
 }
 .card-3 .color-block {
-  background-image: url('Img/Naturaleza.jpg');
+  background-image: url('Img/Naturaleza.webp');
   background-size: cover;
   background-position: center;
 }
-  background-image: url('Img/Tecnico IT.jpg');
+  background-image: url('Img/Tecnico IT.webp');
   background-size: cover;
   background-position: center;
 
